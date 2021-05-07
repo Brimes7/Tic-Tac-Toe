@@ -1,12 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+//To remember things components use state
 
+
+//This sets the state of each square
 class Square extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: null,
+        };
+    }
+    //These components are rendering a single button
+    //Or 9 squares
+
     render() {
         return (
-            <button className="square">
-                {/* TODO */}
+            //Arrow function syntax
+            //When you call setState inside of a component
+            //React automatically updates the child too.
+            <button className="square" onClick={() => this.setState( {value:'X'})}>
+                {/*shows the value*/}
+                {this.state.value}
             </button>
         );
     }
@@ -14,7 +30,8 @@ class Square extends React.Component {
 
 class Board extends React.Component {
     renderSquare(i) {
-        return <Square />;
+        // passed prop of parent Board component to a child Square component
+        return <Square value={i}/>;
     }
 
     render() {
