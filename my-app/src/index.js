@@ -6,12 +6,12 @@ import './index.css';
 
 //This sets the state of each square
 class Square extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: null,
-        };
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         value: null,
+    //     };
+    // }
     //These components are rendering a single button
     //Or 9 squares
 
@@ -20,18 +20,32 @@ class Square extends React.Component {
             //Arrow function syntax
             //When you call setState inside of a component
             //React automatically updates the child too.
-            <button className="square" onClick={() => this.setState( {value:'X'})}>
+            <button className="square" onClick={() => this.props.onClick()}>
                 {/*shows the value*/}
-                {this.state.value}
+                {this.props.value}
             </button>
         );
     }
 }
 
 class Board extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            squares: Array(9).fill(null),
+        };
+    }
+    handleClick(i) {
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({squares: squares});
+    }
+
     renderSquare(i) {
         // passed prop of parent Board component to a child Square component
-        return <Square value={i}/>;
+        return (
+            <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)}/>);
     }
 
     render() {
